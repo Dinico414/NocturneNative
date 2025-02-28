@@ -5,16 +5,17 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
+import android.widget.ImageButton
+import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigationrail.NavigationRailView
@@ -23,7 +24,6 @@ import com.xenon.nocturne.databinding.ActivityMainBinding
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
     private lateinit var bottomNavView: BottomNavigationView
     private lateinit var mainLayout: ConstraintLayout
@@ -39,8 +39,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         mainLayout = binding.mainLayout
-
-        setSupportActionBar(binding.appMain.toolbar)
+        val menuButton: ImageButton = binding.menuButton
 
         val navRail: NavigationRailView = binding.navRail
         // Use a temporary variable to handle the potential nullability
@@ -48,16 +47,25 @@ class MainActivity : AppCompatActivity() {
         bottomNavView = tempBottomNavView
         val navController = findNavController(R.id.nav_host_fragment_content_main)
 
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.nav_now, R.id.nav_recent, R.id.nav_library, R.id.nav_artists, R.id.nav_radio, R.id.nav_settings
-            )
-        )
-
         //Setup Navigation
         setupNavigation(navController, navRail)
+
+        menuButton.setOnClickListener {
+            showPopupMenu(it)
+        }
+    }
+
+    private fun showPopupMenu(view: View) {
+        val popup = PopupMenu(this, view)
+        val inflater: MenuInflater = popup.menuInflater
+        inflater.inflate(R.menu.main, popup.menu)
+        // Set a listener for menu item clicks
+        popup.setOnMenuItemClickListener { item: MenuItem ->
+            onOptionsItemSelected(item)
+        }
+
+        // Show the popup menu
+        popup.show()
     }
 
     private fun setupNavigation(
@@ -71,34 +79,23 @@ class MainActivity : AppCompatActivity() {
             // Portrait phone mode
             bottomNavView.visibility = View.VISIBLE
             navRail.visibility = View.GONE
-            binding.navRailScrollView!!.visibility = View.GONE
+            binding.navRailScrollView.visibility = View.GONE
             setBottomNavConstraints()
             bottomNavView.setupWithNavController(navController)
-            appBarConfiguration = AppBarConfiguration(
-                setOf(
-                    R.id.nav_now, R.id.nav_recent, R.id.nav_library, R.id.nav_artists, R.id.nav_radio
-                )
-            )
         } else {
             // Landscape phone or tablet mode
             bottomNavView.visibility = View.GONE
             navRail.visibility = View.VISIBLE
             // Check if it's a small landscape or not
             if (screenWidthDp < 600) {
-                binding.navRailScrollView!!.visibility = View.VISIBLE
+                binding.navRailScrollView.visibility = View.VISIBLE
                 setSmallLandscapeRailNavConstraints()
             } else {
-                binding.navRailScrollView!!.visibility = View.GONE
+                binding.navRailScrollView.visibility = View.GONE
                 setRailNavConstraints()
             }
             navRail.setupWithNavController(navController)
-            appBarConfiguration = AppBarConfiguration(
-                setOf(
-                    R.id.nav_now, R.id.nav_recent, R.id.nav_library, R.id.nav_artists, R.id.nav_radio, R.id.nav_settings
-                )
-            )
         }
-        setupActionBarWithNavController(navController, appBarConfiguration)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -107,9 +104,15 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_settings -> {
+                // Do something
+                Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     private fun hideSystemUI() {
@@ -194,7 +197,7 @@ class MainActivity : AppCompatActivity() {
         constraintSet.connect(
             binding.appMain.root.id,
             ConstraintSet.START,
-            binding.navRailScrollView!!.id,
+            binding.navRailScrollView.id,
             ConstraintSet.END
         )
         constraintSet.connect(

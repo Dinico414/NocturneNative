@@ -1,15 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.Nocturne" parent="Theme.Material3.DynamicColors.DayNight.NoActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_700</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
         <!-- Transparent Status Bar -->
         <item name="android:statusBarColor">@android:color/transparent</item>
         <!-- Transparent Navigation Bar -->
@@ -21,21 +12,7 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="Theme.Nocturne.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-
-    <style name="Theme.Nocturne.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" >
-        <item name="android:background">@color/zxing_transparent</item>"
-    </style>
-
-    <style name="Theme.Nocturne.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" >
-        <item name="android:background">@color/zxing_transparent</item>"
-    </style>
-
-
-    <style name="Theme.Splash" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="Theme.Splash" parent="Theme.Material3.DynamicColors.DayNight.NoActionBar">
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowBackground">@drawable/splash_background</item>
         <item name="android:statusBarColor">@android:color/black</item>

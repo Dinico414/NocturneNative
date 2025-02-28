@@ -2,8 +2,11 @@ package com.xenon.nocturne
 
 import android.content.res.Configuration
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.Menu
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
@@ -24,6 +27,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var bottomNavView: BottomNavigationView
     private lateinit var mainLayout: ConstraintLayout
+    private var doubleBackToExitPressedOnce = false
+    private val doubleBackToExitMessage: String by lazy { getString(R.string.double_back_to_exit) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,6 +71,7 @@ class MainActivity : AppCompatActivity() {
             // Portrait phone mode
             bottomNavView.visibility = View.VISIBLE
             navRail.visibility = View.GONE
+            binding.navRailScrollView!!.visibility = View.GONE
             setBottomNavConstraints()
             bottomNavView.setupWithNavController(navController)
             appBarConfiguration = AppBarConfiguration(
@@ -77,7 +83,14 @@ class MainActivity : AppCompatActivity() {
             // Landscape phone or tablet mode
             bottomNavView.visibility = View.GONE
             navRail.visibility = View.VISIBLE
-            setRailNavConstraints()
+            // Check if it's a small landscape or not
+            if (screenWidthDp < 600) {
+                binding.navRailScrollView!!.visibility = View.VISIBLE
+                setSmallLandscapeRailNavConstraints()
+            } else {
+                binding.navRailScrollView!!.visibility = View.GONE
+                setRailNavConstraints()
+            }
             navRail.setupWithNavController(navController)
             appBarConfiguration = AppBarConfiguration(
                 setOf(
@@ -173,5 +186,50 @@ class MainActivity : AppCompatActivity() {
             ConstraintSet.TOP
         )
         constraintSet.applyTo(mainLayout)
+    }
+
+    private fun setSmallLandscapeRailNavConstraints() {
+        val constraintSet = ConstraintSet()
+        constraintSet.clone(mainLayout)
+        constraintSet.connect(
+            binding.appMain.root.id,
+            ConstraintSet.START,
+            binding.navRailScrollView!!.id,
+            ConstraintSet.END
+        )
+        constraintSet.connect(
+            binding.appMain.root.id,
+            ConstraintSet.BOTTOM,
+            ConstraintSet.PARENT_ID,
+            ConstraintSet.BOTTOM
+        )
+        constraintSet.connect(
+            binding.appMain.root.id,
+            ConstraintSet.END,
+            ConstraintSet.PARENT_ID,
+            ConstraintSet.END
+        )
+        constraintSet.connect(
+            binding.appMain.root.id,
+            ConstraintSet.TOP,
+            ConstraintSet.PARENT_ID,
+            ConstraintSet.TOP
+        )
+        constraintSet.applyTo(mainLayout)
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed()
+            return
+        }
+
+        doubleBackToExitPressedOnce = true
+        Toast.makeText(this, doubleBackToExitMessage, Toast.LENGTH_SHORT).show()
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            doubleBackToExitPressedOnce = false
+        }, 2000)
     }
 }

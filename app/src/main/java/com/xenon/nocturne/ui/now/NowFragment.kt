@@ -1,4 +1,4 @@
-package com.xenon.nocturne.ui.now_playing
+package com.xenon.nocturne.ui.now
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.xenon.nocturne.databinding.FragmentGalleryBinding
+import com.xenon.nocturne.databinding.FragmentNowBinding
 
-class NowPlayingFragment : Fragment() {
+class NowFragment : Fragment() {
 
-    private var _binding: FragmentGalleryBinding? = null
+    private var _binding: FragmentNowBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -22,14 +22,14 @@ class NowPlayingFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val nowPlayingViewModel =
-            ViewModelProvider(this).get(NowPlayingViewModel::class.java)
+        val nowViewModel =
+            ViewModelProvider(this)[NowViewModel::class.java]
 
-        _binding = FragmentGalleryBinding.inflate(inflater, container, false)
+        _binding = FragmentNowBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textGallery
-        nowPlayingViewModel.text.observe(viewLifecycleOwner) {
+        val textView: TextView = binding.textNow
+        nowViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
         return root

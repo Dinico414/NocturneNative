@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.xenon.nocturne.databinding.FragmentHomeBinding
+import com.xenon.nocturne.databinding.FragmentRecentBinding
 
 class RecentFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
+    private var _binding: FragmentRecentBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -23,12 +23,12 @@ class RecentFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val recentViewModel =
-            ViewModelProvider(this).get(RecentViewModel::class.java)
+            ViewModelProvider(this)[RecentViewModel::class.java]
 
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentRecentBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textHome
+        val textView: TextView = binding.textRecent
         recentViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }

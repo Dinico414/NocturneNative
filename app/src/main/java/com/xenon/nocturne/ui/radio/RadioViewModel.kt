@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 class RadioViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is slideshow Fragment"
+        value = "This is Radio Fragment"
     }
     val text: LiveData<String> = _text
 }

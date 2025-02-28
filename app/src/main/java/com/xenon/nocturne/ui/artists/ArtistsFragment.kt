@@ -7,12 +7,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.xenon.nocturne.databinding.FragmentSlideshowBinding
-import com.xenon.nocturne.ui.artists.ArtistsViewModel
+import com.xenon.nocturne.databinding.FragmentArtistsBinding
 
 class ArtistsFragment : Fragment() {
 
-    private var _binding: FragmentSlideshowBinding? = null
+    private var _binding: FragmentArtistsBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -23,14 +22,14 @@ class ArtistsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val libraryViewModel =
-            ViewModelProvider(this).get(ArtistsViewModel::class.java)
+        val artistsViewModel =
+            ViewModelProvider(this)[ArtistsViewModel::class.java]
 
-        _binding = FragmentSlideshowBinding.inflate(inflater, container, false)
+        _binding = FragmentArtistsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textSlideshow
-        libraryViewModel.text.observe(viewLifecycleOwner) {
+        val textView: TextView = binding.textArtists
+        artistsViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
         return root

@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Nocturne</string>
+
+    <string name="now_playing">Now Playing</string>
+    <string name="recent">Recents</string>
+    <string name="library">Library</string>
+    <string name="artists">Artists</string>
+    <string name="radio">Radio</string>
+    <string name="settings">Settings</string>
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Nocturne</string>
+    <string name="recent">Kürzlich</string>
+    <string name="library">Bibliotheke</string>
+    <string name="artists">Künstler</string>
+    <string name="radio">Radio</string>
+    <string name="settings">Einstelllungen</string>
+    <string name="double_back_to_exit">Betätige ZURÜCK erneut um zu verlassen</string>
+    <string name="now">Gerade läuft</string>
+</resources>

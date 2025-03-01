@@ -53,4 +53,5 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.zxing.android.embedded)
     implementation (libs.android.gif.drawable)
+    implementation("com.google.android.material:material:1.11.0")
 }

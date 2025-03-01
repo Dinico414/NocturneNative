@@ -1,0 +1,28 @@
+<!-- res/drawable/like_button.xml -->
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt">
+    <aapt:attr name="android:drawable">
+        <vector android:name="vector" android:width="11dp" android:height="11dp" android:viewportWidth="10.5"
+            android:viewportHeight="9">
+            <path android:name="path_1"
+                android:pathData="M 2.854 0.529 C 1.57 0.529 0.529 1.57 0.529 2.854 C 0.531 3.472 0.779 4.063 1.219 4.498 L 5.179 8.467 L 9.139 4.498 C 9.578 4.063 9.826 3.472 9.828 2.854 C 9.828 1.57 8.787 0.529 7.503 0.529 C 6.877 0.529 6.309 0.778 5.891 1.181 L 5.89 1.181 L 5.179 1.891 L 4.468 1.181 L 4.466 1.181 C 4.048 0.778 3.48 0.529 2.854 0.529 Z"
+                android:fillColor="#ffffff" android:strokeColor="#ffffff" android:strokeWidth="1.05833"
+                android:strokeLineCap="round" android:strokeLineJoin="round" />
+        </vector>
+    </aapt:attr>
+    <target android:name="path_1">
+        <aapt:attr name="android:animation">
+            <set>
+                <objectAnimator android:propertyName="strokeColor" android:duration="1000"
+                    android:valueFrom="#ffffff" android:valueTo="@color/green_like"
+                    android:valueType="colorType" android:interpolator="@android:interpolator/fast_out_slow_in" />
+                <objectAnimator android:propertyName="fillAlpha" android:duration="1000"
+                    android:valueFrom="0" android:valueTo="1" android:valueType="floatType"
+                    android:interpolator="@android:anim/bounce_interpolator" />
+                <objectAnimator android:propertyName="fillColor" android:duration="1000"
+                    android:valueFrom="#ffffff" android:valueTo="@color/green_like"
+                    android:valueType="colorType" android:interpolator="@android:interpolator/fast_out_slow_in" />
+            </set>
+        </aapt:attr>
+    </target>
+</animated-vector>

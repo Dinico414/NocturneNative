@@ -2,22 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/nav_now"
-        android:icon="@drawable/ic_menu_now_playing"
-        android:title="@string/now" />
+        android:icon="@drawable/ic_menu_now_playing"/>
     <item
         android:id="@+id/nav_recent"
-        android:icon="@drawable/ic_menu_recents"
-        android:title="@string/recent" />
+        android:icon="@drawable/ic_menu_recents"/>
     <item
         android:id="@+id/nav_library"
-        android:icon="@drawable/ic_menu_library"
-        android:title="@string/library" />
+        android:icon="@drawable/ic_menu_library"/>
     <item
         android:id="@+id/nav_artists"
-        android:icon="@drawable/ic_menu_artists"
-        android:title="@string/artists" />
+        android:icon="@drawable/ic_menu_artists"/>
     <item
         android:id="@+id/nav_radio"
-        android:icon="@drawable/ic_menu_radio"
-        android:title="@string/radio" />
+        android:icon="@drawable/ic_menu_radio"/>
 </menu>

@@ -33,7 +33,8 @@
         <com.google.android.material.navigationrail.NavigationRailView
             android:id="@+id/nav_rail"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/zxing_transparent"
             android:visibility="visible"
             app:menu="@menu/activity_main_drawer"
             app:menuGravity="center"

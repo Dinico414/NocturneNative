@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Hide the navigation bar and status bar
+
         hideSystemUI()
 
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -42,12 +42,12 @@ class MainActivity : AppCompatActivity() {
         val menuButton: ImageButton = binding.menuButton
 
         val navRail: NavigationRailView = binding.navRail
-        // Use a temporary variable to handle the potential nullability
+
         val tempBottomNavView = binding.bottomNavView
         bottomNavView = tempBottomNavView
         val navController = findNavController(R.id.nav_host_fragment_content_main)
 
-        //Setup Navigation
+
         setupNavigation(navController, navRail)
 
         menuButton.setOnClickListener {
@@ -59,12 +59,12 @@ class MainActivity : AppCompatActivity() {
         val popup = PopupMenu(this, view)
         val inflater: MenuInflater = popup.menuInflater
         inflater.inflate(R.menu.main, popup.menu)
-        // Set a listener for menu item clicks
+
         popup.setOnMenuItemClickListener { item: MenuItem ->
             onOptionsItemSelected(item)
         }
 
-        // Show the popup menu
+
         popup.show()
     }
 
@@ -76,17 +76,17 @@ class MainActivity : AppCompatActivity() {
         val screenWidthDp = resources.configuration.screenWidthDp
 
         if (orientation == Configuration.ORIENTATION_PORTRAIT && screenWidthDp < 600) {
-            // Portrait phone mode
+
             bottomNavView.visibility = View.VISIBLE
             navRail.visibility = View.GONE
             binding.navRailScrollView.visibility = View.GONE
             setBottomNavConstraints()
             bottomNavView.setupWithNavController(navController)
         } else {
-            // Landscape phone or tablet mode
+
             bottomNavView.visibility = View.GONE
             navRail.visibility = View.VISIBLE
-            // Check if it's a small landscape or not
+
             if (screenWidthDp < 600) {
                 binding.navRailScrollView.visibility = View.VISIBLE
                 setSmallLandscapeRailNavConstraints()
@@ -99,7 +99,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
+
         menuInflater.inflate(R.menu.main, menu)
         return true
     }
@@ -107,18 +107,18 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_settings -> {
-                // Do something
+
                 Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show()
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }
 
     private fun hideSystemUI() {
-        // Enables regular immersive mode.
-        // For "lean back" mode, remove SYSTEM_UI_FLAG_IMMERSIVE.
-        // Or for sticky immersive mode, replace with SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+
+
         val decorView = window.decorView
         decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
     }

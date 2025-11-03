@@ -13,28 +13,30 @@ android {
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildFeatures {
+        buildConfig = true
+        viewBinding = true
     }
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("debug")
         }
+
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
     kotlinOptions {
-        jvmTarget = "11"
-    }
-    buildFeatures {
-        viewBinding = true
+        jvmTarget = "21"
     }
 }
 
@@ -53,5 +55,4 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.zxing.android.embedded)
     implementation (libs.android.gif.drawable)
-    implementation("com.google.android.material:material:1.11.0")
 }
